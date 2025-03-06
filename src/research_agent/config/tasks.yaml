@@ -1,17 +1,26 @@
 research_task:
   description: >
-    Conduct a thorough research about {topic}
-    Make sure you find any interesting and relevant information given
-    the current year is {current_year}.
+    Conduct an initial analysis on {image_path}. Identify details such as:
+    - Image quality
+    - Subject matter
+    - Key features
   expected_output: >
-    A list with 10 bullet points of the most relevant information about {topic}
-  agent: researcher
+    A summary of key details from the image.
+  agent: image_researcher
+
+inspection_task:
+  description: >
+    Perform a detailed quality inspection on {image_path}. Focus on:
+    1. Image sharpness and clarity
+    2. Lighting conditions
+    3. Any visible defects
+  expected_output: >
+    A report highlighting any detected issues in the image.
+  agent: expert_analyst
 
 reporting_task:
   description: >
-    Review the context you got and expand each topic into a full section for a report.
-    Make sure the report is detailed and contains any and all relevant information.
+    Summarize findings from previous tasks into a structured report.
   expected_output: >
-    A fully fledged report with the main topics, each with a full section of information.
-    Formatted as markdown without '```'
+    A well-structured markdown report containing all image insights.
   agent: reporting_analyst

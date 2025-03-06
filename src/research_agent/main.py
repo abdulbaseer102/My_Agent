@@ -1,24 +1,15 @@
 #!/usr/bin/env python
 import sys
 import warnings
-
 from datetime import datetime
-
 from research_agent.crew import ResearchAgent
 
-warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
-
-# This main file is intended to be a way for you to run your
-# crew locally, so refrain from adding unnecessary logic into this file.
-# Replace with inputs you want to test with, it will automatically
-# interpolate any tasks and agents information
+warnings.filterwarnings("ignore", category=SyntaxWarning)
 
 def run():
-    """
-    Run the crew.
-    """
+    """Run the Crew"""
     inputs = {
-        'topic': 'Pakistan',
+        'image_path': 'https://photographylife.com/wp-content/uploads/2014/09/Nikon-D750-Image-Samples-2.jpg',
         'current_year': str(datetime.now().year)
     }
     
@@ -27,41 +18,30 @@ def run():
     except Exception as e:
         raise Exception(f"An error occurred while running the crew: {e}")
 
-
 def train():
-    """
-    Train the crew for a given number of iterations.
-    """
+    """Train the Crew"""
     inputs = {
-        "topic": "AI LLMs",
+        "image_path": "https://photographylife.com/wp-content/uploads/2014/09/Nikon-D750-Image-Samples-2.jpg",
         'current_year': str(datetime.now().year)
-
     }
     try:
-        ResearchAgent().crew().train(n_iterations=int(sys.argv[1]), filename=sys.argv[2], inputs=inputs)
-
+        ImageAnalysisCrew().crew().train(n_iterations=int(sys.argv[1]), filename=sys.argv[2], inputs=inputs)
     except Exception as e:
         raise Exception(f"An error occurred while training the crew: {e}")
 
 def replay():
-    """
-    Replay the crew execution from a specific task.
-    """
+    """Replay the Crew Execution"""
     try:
-        ResearchAgent().crew().replay(task_id=sys.argv[1])
-
+        ImageAnalysisCrew().crew().replay(task_id=sys.argv[1])
     except Exception as e:
         raise Exception(f"An error occurred while replaying the crew: {e}")
 
 def test():
-    """
-    Test the crew execution and returns the results.
-    """
+    """Test the Crew Execution"""
     inputs = {
-        "topic": "AI LLMs"
+        "image_path": "images/sample.jpg"
     }
     try:
-        ResearchAgent().crew().test(n_iterations=int(sys.argv[1]), openai_model_name=sys.argv[2], inputs=inputs)
-
+        ImageAnalysisCrew().crew().test(n_iterations=int(sys.argv[1]), openai_model_name=sys.argv[2], inputs=inputs)
     except Exception as e:
         raise Exception(f"An error occurred while testing the crew: {e}")
