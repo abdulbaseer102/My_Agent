@@ -1,54 +1,166 @@
-# ResearchAgent Crew
+# Research Agent
 
-Welcome to the ResearchAgent Crew project, powered by [crewAI](https://crewai.com). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by crewAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
+## 📌 Overview
+The **Research Agent** is an AI-powered automation system built with **CrewAI**, designed to:
 
-## Installation
+- **Conduct in-depth research** on a given topic
+- **Analyze product images** for quality and compliance
+- **Generate structured reports** based on findings
 
-Ensure you have Python >=3.10 <3.13 installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
+This project utilizes **multimodal agents**, enabling text-based research and **image processing** capabilities.
 
-First, if you haven't already, install uv:
+---
 
+## 🚀 Installation & Setup
+### 1️⃣ Clone the Repository
 ```bash
-pip install uv
+git clone https://github.com/yourusername/research_agent.git
+cd research_agent
 ```
 
-Next, navigate to your project directory and install the dependencies:
-
-(Optional) Lock the dependencies and install them by using the CLI command:
+### 2️⃣ Set Up a Virtual Environment (Optional but Recommended)
 ```bash
-crewai install
-```
-### Customizing
-
-**Add your `OPENAI_API_KEY` into the `.env` file**
-
-- Modify `src/research_agent/config/agents.yaml` to define your agents
-- Modify `src/research_agent/config/tasks.yaml` to define your tasks
-- Modify `src/research_agent/crew.py` to add your own logic, tools and specific args
-- Modify `src/research_agent/main.py` to add custom inputs for your agents and tasks
-
-## Running the Project
-
-To kickstart your crew of AI agents and begin task execution, run this from the root folder of your project:
-
-```bash
-$ crewai run
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ```
 
-This command initializes the research_agent Crew, assembling the agents and assigning them tasks as defined in your configuration.
+### 3️⃣ Install Dependencies
+```bash
+pip install -r requirements.txt
+```
 
-This example, unmodified, will run the create a `report.md` file with the output of a research on LLMs in the root folder.
+### 4️⃣ Set API Keys
+This project requires **OpenAI API** and **Serper API**. Add your keys to an `.env` file:
+```ini
+OPENAI_API_KEY=your_openai_api_key
+SERPER_API_KEY=your_serper_api_key
+```
 
-## Understanding Your Crew
+---
 
-The research_agent Crew is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `config/agents.yaml` file outlines the capabilities and configurations of each agent in your crew.
+## 🎯 Project Structure
+```
+research_agent/
+│── .venv/                # Virtual environment (optional)
+│── db/                   # Database (if needed for storage)
+│── knowledge/            # Pre-stored research data
+│   ├── user_preference.txt
+│── src/
+│   ├── research_agent/
+│   │   ├── config/        # Configuration files
+│   │   │   ├── agents.yaml
+│   │   │   ├── tasks.yaml
+│   │   ├── tools/         # Custom tools for agents
+│   │   │   ├── custom_tool.py
+│   │   ├── crew.py        # CrewAI logic
+│   │   ├── main.py        # Main execution script
+│── tests/                 # Test cases
+│── README.md              # Project documentation
+│── pyproject.toml         # Python project metadata
+│── .gitignore             # Ignoring unnecessary files
+```
 
-## Support
+---
 
-For support, questions, or feedback regarding the ResearchAgent Crew or crewAI.
-- Visit our [documentation](https://docs.crewai.com)
-- Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/crewai)
-- [Join our Discord](https://discord.com/invite/X4JWnZnxPb)
-- [Chat with our docs](https://chatg.pt/DWjSBZn)
+## 📜 Configuration Files
+### `agents.yaml` - Defines AI Agents
+```yaml
+researcher:
+  role: >
+    {topic} Senior Data Researcher
+  goal: >
+    Uncover cutting-edge developments in {topic}
+  backstory: >
+    Expert in finding and summarizing complex data.
 
-Let's create wonders together with the power and simplicity of crewAI.
+reporting_analyst:
+  role: >
+    {topic} Reporting Analyst
+  goal: >
+    Create detailed reports based on {topic}
+  backstory: >
+    Skilled in organizing data into structured reports.
+
+expert_analyst:
+  role: >
+    Visual Quality Inspector
+  goal: >
+    Perform detailed quality analysis of product images
+  backstory: >
+    Senior quality control expert in visual inspection.
+```
+
+### `tasks.yaml` - Defines Tasks for Agents
+```yaml
+research_task:
+  description: >
+    Conduct in-depth research about {topic}
+  expected_output: >
+    10 key insights on {topic}
+  agent: researcher
+
+reporting_task:
+  description: >
+    Generate a structured report based on research findings.
+  expected_output: >
+    A detailed markdown report.
+  agent: reporting_analyst
+
+inspection_task:
+  description: >
+    Analyze product images for quality, defects, and compliance.
+  expected_output: >
+    A structured quality assessment report.
+  agent: expert_analyst
+```
+
+---
+
+## 🛠 Running the Agent
+### 🔹 Run Research & Image Analysis
+```bash
+python src/research_agent/main.py
+```
+
+### 🔹 Train the CrewAI Model
+```bash
+python src/research_agent/main.py train 10 model_output.pkl
+```
+
+### 🔹 Replay a Specific Task
+```bash
+python src/research_agent/main.py replay inspection_task
+```
+
+---
+
+## 🎨 Customization Guide
+1️⃣ **Modify Agents:**
+   - Edit `agents.yaml` to change roles, goals, or backstories.
+
+2️⃣ **Update Tasks:**
+   - Customize `tasks.yaml` to define new research or analysis objectives.
+
+3️⃣ **Add New Tools:**
+   - Implement new tools in `tools/custom_tool.py` to extend capabilities.
+
+---
+
+## 📌 Best Practices
+✅ Ensure **API keys** are valid and stored securely.
+✅ Use **specific task descriptions** for better AI performance.
+✅ Keep dependencies **up-to-date** to avoid compatibility issues.
+✅ Run tests before deploying changes.
+
+---
+
+## 🤝 Contributing
+Contributions are welcome! Feel free to submit issues or pull requests.
+
+---
+
+## 📜 License
+This project is open-source and available under the **MIT License**.
+
+🚀 **Happy Researching!**
+
